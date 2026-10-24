@@ -43,10 +43,10 @@ sudo mkdir -p /usr/share/themes /usr/share/icons
 
 git clone --depth 1 https://github.com/B00merang-Artwork/Windows-XP.git ~/.icons/Windows-XP
 sudo cp -r ~/.icons/Windows-XP /usr/share/icons/
+rm -rf ~/.icons
 
 TMP="$(mktemp -d)"
 git clone --depth 1 https://github.com/B00merang-Project/Windows-XP.git "$TMP/gtk"
-cp -r "$TMP/gtk/Windows XP Embedded" ~/.themes/
 sudo cp -r "$TMP/gtk/Windows XP Embedded" /usr/share/themes/
 rm -rf $TMP
 
