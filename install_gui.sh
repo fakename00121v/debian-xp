@@ -32,6 +32,7 @@ sudo apt autoremove -y
 
 sudo apt install -y --no-install-recommends fastfetch cava ranger
 
+sudo timedatectl set-timezone Europe/Moscow
 sudo apt install -y --no-install-recommends locales
 echo "en_US.UTF-8 UTF-8" | sudo tee /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
