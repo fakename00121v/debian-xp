@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Openbox
 Comment=Openbox Window Manager
-Exec=openbox-session
-TryExec=openbox-session
+Exec=dbus-launch --exit-with-session openbox-session
+TryExec=dbus-launch --exit-with-session openbox-session
 Type=Application
 DesktopNames=Openbox
