@@ -1,0 +1,12 @@
+[Seat:*]
+greeter-session=lightdm-gtk-greeter
+user-session=openbox
+autologin-user=
+autologin-user-timeout=0
+allow-guest=false
+greeter-hide-users=false
+greeter-show-manual-login=true
+
+[LightDM]
+start-default-seat=true
+run-directory=/run/lightdm
