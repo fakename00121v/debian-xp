@@ -7,7 +7,7 @@ sudo apt update
 sudo apt install -y --no-install-recommends ntfs-3g exfatprogs dosfstools
 
 sudo sh -c 'echo "blacklist ntfs3" > /etc/modprobe.d/blacklist-ntfs3.conf'
-sudo modprobe -r ntfs3
+sudo modprobe -r ntfs3 || true
 sudo mkdir -p /etc/udev/rules.d
 sudo sh -c 'cat <<EOF > /etc/udev/rules.d/99-ntfs3-disable.rules
 SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="ntfs", ENV{ID_FS_TYPE}="ntfs-3g"
@@ -25,9 +25,9 @@ sudo apt install -y --no-install-recommends \
     lxsession-logout dunst picom dbus-x11 alacritty gxkb libnotify-bin python3-gi gir1.2-notify-0.7 python3-xdg
 
 sudo apt install -y --no-install-recommends firefox-esr mousepad mpv galculator gpicview xarchiver lxtask gdebi
-sudo apt purge fortune-mod -y --no-install-recommends
-sudo apt purge "^ibus.*" -y --no-install-recommends
-sudo apt purge mlterm mlterm-tiny mlterm-common --no-install-recommends -y
+sudo apt purge fortune-mod -y --no-install-recommends || true
+sudo apt purge "^ibus.*" -y --no-install-recommends || true
+sudo apt purge mlterm mlterm-tiny mlterm-common --no-install-recommends -y || true
 sudo apt autoremove -y
 
 sudo apt install -y --no-install-recommends fastfetch cava ranger
@@ -98,7 +98,7 @@ sudo wget -O /usr/share/backgrounds/lightdm-wallpaper.jpg https://raw.githubuser
 
 sudo rm -f /etc/systemd/system/display-manager.service
 sudo ln -s /lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service
-sudo systemctl enable lightdm.service
+sudo systemctl enable lightdm.service || true
 sudo systemctl daemon-reload
 
 cat << EOF > $HOME/.config/pcmanfm/default/desktop-items-0.conf
@@ -117,9 +117,9 @@ show_trash=1
 show_mounts=1
 EOF
 
-systemctl --user enable --now pipewire.service wireplumber.service pipewire-pulse.service
+systemctl --user enable --now pipewire.service wireplumber.service pipewire-pulse.service || true
 set +e
-sudo systemctl stop display-manager.service
+sudo systemctl stop display-manager.service || true
 
 touch "$HOME/.lightdm_once_flag"
 cat << 'EOF' >> "$HOME/.bashrc"
