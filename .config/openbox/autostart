@@ -1,8 +1,9 @@
 setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle" &
 xcape -e 'Super_L=Control_L|Alt_L|Super_L|Insert' &
+picom &
+light-locker &
 tint2 &
 dunst &
-picom &
 pcmanfm --desktop &
 lxpolkit &
 gxkb &
