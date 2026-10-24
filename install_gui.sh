@@ -21,7 +21,7 @@ sudo apt install -y --no-install-recommends pipewire pipewire-audio-client-libra
 sudo apt install -y --no-install-recommends udisks2
 
 sudo apt install -y --no-install-recommends \
-    xorg openbox obconf tint2 lxappearance pcmanfm jgmenu lxpolkit xcape udiskie \
+    xorg openbox obconf tint2 lxappearance pcmanfm jgmenu lxpolkit xcape udiskie xdg-desktop-portal-gtk network-manager\
     lxsession-logout dunst picom dbus-x11 alacritty gxkb libnotify-bin python3-gi gir1.2-notify-0.7 python3-xdg
 
 sudo apt install -y --no-install-recommends firefox-esr mousepad mpv galculator gpicview xarchiver lxtask gdebi
