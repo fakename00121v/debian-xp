@@ -4,6 +4,7 @@ tint2 &
 dunst &
 picom &
 pcmanfm --desktop &
+lxpolkit &
 gxkb &
 udiskie -t -F &
 pnmixer &
