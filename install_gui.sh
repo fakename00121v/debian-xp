@@ -85,7 +85,7 @@ wget -O ~/.config/jgmenu/append.csv https://raw.githubusercontent.com/fakename00
 wait
 chmod +x ~/.local/bin/layout_switch.sh
 
-sudo apt install -y --no-install-recommends lightdm lightdm-gtk-greeter
+sudo apt install -y --no-install-recommends lightdm lightdm-gtk-greeter light-locker
 
 sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/xsessions
