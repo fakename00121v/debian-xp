@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Openbox
+Comment=Openbox Window Manager
+Exec=openbox-session
+TryExec=openbox-session
+Type=Application
+DesktopNames=Openbox
