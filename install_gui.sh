@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+export DEBIAN_FRONTEND=noninteractive
+
 sudo apt update
 sudo apt install -y --no-install-recommends ntfs-3g exfatprogs dosfstools
 
@@ -36,12 +39,15 @@ sudo locale-gen
 sudo update-locale LANG=ru_RU.UTF-8 LANGUAGE=ru_RU:ru LC_CTYPE="ru_RU.UTF-8" LC_NUMERIC="ru_RU.UTF-8" LC_TIME="ru_RU.UTF-8" LC_COLLATE="ru_RU.UTF-8" LC_MONETARY="ru_RU.UTF-8" LC_MESSAGES="ru_RU.UTF-8" LC_PAPER="ru_RU.UTF-8" LC_NAME="ru_RU.UTF-8" LC_ADDRESS="ru_RU.UTF-8" LC_TELEPHONE="ru_RU.UTF-8" LC_MEASUREMENT="ru_RU.UTF-8" LC_IDENTIFICATION="ru_RU.UTF-8" LC_ALL="ru_RU.UTF-8"
 
 mkdir -p ~/.icons ~/.themes
+sudo mkdir -p /usr/share/themes /usr/share/icons
 
-git clone --depth 1 https://github.com/B00merang-Artwork/Windows-XP.git ~/.icons/Windows-XP &
+git clone --depth 1 https://github.com/B00merang-Artwork/Windows-XP.git ~/.icons/Windows-XP
+sudo cp -r ~/.icons/Windows-XP /usr/share/icons/
 
 TMP="$(mktemp -d)"
 git clone --depth 1 https://github.com/B00merang-Project/Windows-XP.git "$TMP/gtk"
 cp -r "$TMP/gtk/Windows XP Embedded" ~/.themes/
+sudo cp -r "$TMP/gtk/Windows XP Embedded" /usr/share/themes/
 rm -rf $TMP
 
 mkdir -p ~/.config/openbox
@@ -79,6 +85,22 @@ wget -O ~/.config/jgmenu/append.csv https://raw.githubusercontent.com/fakename00
 wait
 chmod +x ~/.local/bin/layout_switch.sh
 
+sudo apt install -y --no-install-recommends lightdm lightdm-gtk-greeter
+
+sudo mkdir -p /etc/lightdm
+sudo mkdir -p /usr/share/xsessions
+sudo mkdir -p /usr/share/backgrounds
+
+sudo wget -O /etc/lightdm/lightdm.conf https://raw.githubusercontent.com/fakename00121v/debian-xp/refs/heads/main/.config/lightdm/lightdm.conf
+sudo wget -O /etc/lightdm/lightdm-gtk-greeter.conf https://raw.githubusercontent.com/fakename00121v/debian-xp/refs/heads/main/.config/lightdm/lightdm-gtk-greeter.conf
+sudo wget -O /usr/share/xsessions/openbox.desktop https://raw.githubusercontent.com/fakename00121v/debian-xp/refs/heads/main/.config/xsessions/openbox.desktop
+sudo wget -O /usr/share/backgrounds/lightdm-wallpaper.jpg https://raw.githubusercontent.com/fakename00121v/debian-xp/refs/heads/main/.config/lightdm/wallpaper.jpg
+
+sudo rm -f /etc/systemd/system/display-manager.service
+sudo ln -s /lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service
+sudo systemctl enable lightdm.service
+sudo systemctl daemon-reload
+
 cat << EOF > $HOME/.config/pcmanfm/default/desktop-items-0.conf
 [*]
 wallpaper_mode=stretch
@@ -95,18 +117,8 @@ show_trash=1
 show_mounts=1
 EOF
 
-echo "exec dbus-launch --exit-with-session openbox-session" > ~/.xinitrc
-
 systemctl --user enable --now pipewire.service wireplumber.service pipewire-pulse.service
-
-touch "$HOME/.startx_once_flag"
-cat << 'EOF' >> "$HOME/.bashrc"
-# if you see this block pls remove it
-if [ -f "$HOME/.startx_once_flag" ]; then
-    rm "$HOME/.startx_once_flag"
-    exec startx
-fi
-#end of block
-EOF
+set +e
+sudo systemctl stop display-manager.service
 
 loginctl terminate-user "$USER"
