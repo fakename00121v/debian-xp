@@ -21,7 +21,7 @@ sudo apt install -y --no-install-recommends pipewire pipewire-audio-client-libra
 sudo apt install -y --no-install-recommends udisks2
 
 sudo apt install -y --no-install-recommends \
-    xorg openbox obconf tint2 lxappearance pcmanfm jgmenu xcape udiskie \
+    xorg openbox obconf tint2 lxappearance pcmanfm jgmenu lxpolkit xcape udiskie \
     lxsession-logout dunst picom dbus-x11 alacritty gxkb libnotify-bin python3-gi gir1.2-notify-0.7
 
 sudo apt install -y --no-install-recommends firefox-esr mousepad mpv galculator gpicview xarchiver lxtask gdebi
@@ -120,5 +120,15 @@ EOF
 systemctl --user enable --now pipewire.service wireplumber.service pipewire-pulse.service
 set +e
 sudo systemctl stop display-manager.service
+
+touch "$HOME/.lightdm_once_flag"
+cat << 'EOF' >> "$HOME/.bashrc"
+# if you see this block pls remove it
+if [ -f "$HOME/.lightdm_once_flag" ]; then
+    rm "$HOME/.lightdm_once_flag"
+    sudo systemctl start lightdm.service
+fi
+#end of block
+EOF
 
 loginctl terminate-user "$USER"
