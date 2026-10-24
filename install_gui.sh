@@ -118,6 +118,7 @@ show_mounts=1
 EOF
 
 systemctl --user enable --now pipewire.service wireplumber.service pipewire-pulse.service || true
+sudo systemctl enable --now NetworkManager
 set +e
 sudo systemctl stop display-manager.service || true
 
